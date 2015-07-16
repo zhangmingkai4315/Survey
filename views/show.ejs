@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="SurveyApp">
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/bower/angular-chart.js/dist/angular-chart.css"></script>
+    <script src="/bower/jquery/dist/jquery.min.js"></script>
+    <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower/angular/angular.min.js"></script>
+    <script src="/bower/underscore/underscore.js"></script>
+    <script src="/bower/Chart.js/Chart.min.js"></script>
+    <script src="/bower/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="/javascripts/app.js"></script>
+    <script src="/javascripts/web-ui.js"></script>
+</head>
+<body ng-controller="ShowController">
+<section class="hero">
+    <div class="container">
+        <section class="hero-heading text-center">
+            <h1>内部调查问卷结果展示</h1>
+            <h2>主题:<span ng-bind="showData.allSurvey[0].SurveyTitle"></span></h2>
+        </section>
+    </div>
+</section>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12" ng-show="UIDisplay.alarmBar">
+            <br>
+            <div class="alert" ng-class="UIDisplay.alarmType" ng-bind="UIDisplay.alarmInfo"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="showZone">
+                <div class="container">
+                        <section class="list row" ng-repeat="question in showData.allQuestions">
+                            <div class="bs-callout bs-callout-info col-lg-7">
+                                <h3>
+                                    <strong>问题(<span ng-bind=$index+1></span>/<span ng-bind="showData.allQuestions.length"></span>):
+                                        <span ng-bind="question.question"></span></strong>
+                                </h3>
+
+                                <div ng-repeat="answer in question.answer">
+                                    <h4><b ng-bind="answer.id"></b>:<b ng-bind="answer.content"></b></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <canvas id="bar" class="chart chart-bar" data="question.data"
+                                        labels="question.labels"></canvas>
+                            </div>
+                        </section>
+                </div>
+
+            </section>
+        </div>
+        <div class="col-lg-12"><section class="commentZone" ng-controller="CommentController">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h4>留言区</h4></div>
+                        <div class="panel-body">
+                                <div class="showComment" ng-repeat="comment in showData.allSurvey[0].comments">
+                                    <div class="alert alert-info" role="alert"><span>{{comment.username}}</span>:<span>{{comment.comment}}</span>
+                                </div>
+                                <div class="showComment" ng-hide="showData.allSurvey[0].comments.length">
+                                  <div class="alert alert-warning" role="alert"><h5>暂无评论</h5></div>
+                                </div>
+                        </div>
+                    </div>
+                        </div>
+                    <div class="well clearfix">
+
+                        <label>剩余字数:<span ng-bind="140-comment.newComment.length"></span></label>
+                        <textarea class="form-control" ng-model="comment.newComment"></textarea><br>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input class="pull-right form-control" ng-model="comment.username" placeholder="匿名用户">
+                            </div>
+                            <button class="js-tweet-button btn btn-primary pull-right" ng-click="addNewComment()">发表留言</button>
+                            <div class="alert" ng-class="showMessageClass" ng-show="showMessage">{{showMessageData}}</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section></div></div>
+    </div>
+</div>
+
+
+</body>
+</html>

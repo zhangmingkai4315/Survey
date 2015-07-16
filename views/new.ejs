@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="SurveyApp">
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/bower/angular-chart.js/dist/angular-chart.css"></script>
+    <script src="/bower/jquery/dist/jquery.min.js"></script>
+    <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower/angular/angular.min.js"></script>
+    <script src="/bower/underscore/underscore.js"></script>
+    <script src="/bower/Chart.js/Chart.min.js"></script>
+    <script src="/bower/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="/javascripts/app.js"></script>
+    <script src="/javascripts/web-ui.js"></script>
+</head>
+<body ng-controller="newSurveyController">
+<section class="hero">
+    <div class="container">
+        <section class="hero-heading text-center">
+            <h1>内部调查问卷结果展示</h1>
+            <h2>主题:<span ng-bind="showData.allSurvey[0].SurveyTitle"></span></h2>
+        </section>
+    </div>
+</section>
+<section class="newSurvey">
+    <div class="container">
+        <div class="row">
+            <form name="surveyData">
+                <div class=""
+            </form>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="SurveyApp">
+  <head>
+    <title><%= title %></title>
+      <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+      <script src="/bower/angular-chart.js/dist/angular-chart.css"></script>
+      <script src="/bower/jquery/dist/jquery.min.js"></script>
+      <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script src="/bower/angular/angular.min.js"></script>
+      <script src="/bower/underscore/underscore.js"></script>
+      <script src="/bower/Chart.js/Chart.min.js"></script>
+      <script src="/bower/angular-chart.js/dist/angular-chart.min.js"></script>
+      <script src="/javascripts/app.js"></script>
+      <script src="/javascripts/web-ui.js"></script>
+  </head>
+  <body ng-controller="BodyController">
+    <section class="hero" id="container">
+      <div class="container" >
+        <section class="hero-heading text-center">
+          <h1>欢迎使用内部调查问卷</h1>
+          <h2>本期主题:<span ng-bind="voteData.allSurvey[0].SurveyTitle"></span></h2>
+        </section>
+      </div>
+    </section>
+    <section class="voteZone" ng-controller="VoteController">
+    <div class="container">
+        <div class="row">
+            <form name="voteForm" novalidate>
+                <div class="col-lg-12">
+                    <div class="col-lg-12" ng-show="MainUIDisplay.alarmBar">
+                        <br>
+                        <div class="alert" ng-class="MainUIDisplay.alarmType" ng-bind="MainUIDisplay.alarmInfo"></div>
+                    </div>
+                    <div class="votelist" ng-repeat="question in voteData.allQuestions">
+                        <div class="bs-callout bs-callout-info">
+                            <h3>
+                                <strong>问题(<b ng-bind=$index+1></b>/<b ng-bind="voteData.allQuestions.length"></b>):<span ng-bind="question.question"></span></strong>
+                            </h3>
+
+                            <div ng-repeat="answer in question.answer">
+
+
+                                <input type="checkbox" id="checkbox_{{question.SerialNumber}}_{{answer.id}}" name="checkbox_{{question.SerialNumber}}_{{answer.id}}"
+                                       ng-model='formData.result.q_[question.SerialNumber][answer.id]'
+                                       class="regular-checkbox"
+                                       required/>
+                                <label for="checkbox_{{question.SerialNumber}}_{{answer.id}}"></label><span ng-bind="answer.content"></span>
+                            </div>
+
+
+                            </div>
+                            <br>
+
+                        </div>
+                       </div>
+
+                </div>
+
+
+                <!--模态对话框-->
+
+                <div class="modal fade confirmDialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h2 class="modal-title">提交确认</h2>
+                            </div>
+                            <div class="modal-body">
+                                <h4>调查问卷为匿名填写,点击提交后可查看调查结果</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-lg btn-primary" ng-click="submitVoteForm(voteData.allSurvey[0].SurveyTitle,voteData.allQuestions.length)" >提交调查问卷</button>
+                            </div>
+                            <div class="col-lg-12" ng-show="UIDisplay.alarmBar">
+                                <br>
+                                <div class="alert" ng-class="UIDisplay.alarmType" ng-bind="UIDisplay.alarmInfo"></div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+                <!--结束-->
+
+
+                <div class="col-lg-12 text-center">
+                    <button type="button" data-toggle="modal" ng-click="confirmDialog()" class="btn btn-lg btn-primary">提交问卷</button>
+                    <button type="button" ng-click="showVoteResult()" class="btn btn-lg btn-primary">投票结果</button>
+                </div>
+
+               </div>
+            </form>
+      </div>
+    </section>
+
+  </body>
+</html>
